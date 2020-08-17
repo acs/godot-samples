@@ -1,0 +1,26 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Ground.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Fall.tscn" type="PackedScene" id=2]
+
+[node name="RectCollision" type="Node2D"]
+
+[node name="Fall" parent="." instance=ExtResource( 2 )]
+position = Vector2( 271.636, 41.5311 )
+
+[node name="Fall2" parent="." instance=ExtResource( 2 )]
+position = Vector2( 232.349, 3.36739 )
+
+[node name="Fall3" parent="." instance=ExtResource( 2 )]
+position = Vector2( 193.063, 43.776 )
+
+[node name="Fall4" parent="." instance=ExtResource( 2 )]
+position = Vector2( 193.063, 3.36736 )
+
+[node name="Fall5" parent="." instance=ExtResource( 2 )]
+position = Vector2( 271.636, 3.36736 )
+
+[node name="Fall6" parent="." instance=ExtResource( 2 )]
+position = Vector2( 232.35, 43.776 )
+
+[node name="Ground" parent="." instance=ExtResource( 1 )]
