@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://Fall.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Ground.tscn" type="PackedScene" id=2]
+
+[sub_resource type="RectangleShape2D" id=1]
+
+[node name="Area2D" type="Area2D"]
+space_override = 3
+gravity_vec = Vector2( 0, -1 )
+
+[node name="Fall" parent="." instance=ExtResource( 1 )]
+position = Vector2( 230.517, 147.078 )
+gravity_scale = 1.5
+
+[node name="Ground" parent="." instance=ExtResource( 2 )]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 251.024, 166.171 )
+shape = SubResource( 1 )
