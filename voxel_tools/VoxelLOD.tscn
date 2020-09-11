@@ -4,6 +4,7 @@
 
 [sub_resource type="VoxelGeneratorNoise" id=2]
 noise = SubResource( 1 )
+height_range = 100.0
 
 [node name="Spatial" type="Spatial"]
 
