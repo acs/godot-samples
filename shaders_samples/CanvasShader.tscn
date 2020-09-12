@@ -25,7 +25,7 @@ custom_defines = ""
 shader = SubResource( 1 )
 shader_param/blue = 0.6
 
-[node name="CanvasItem" type="Node2D"]
+[node name="CanvasShader" type="Node2D"]
 
 [node name="Sprite" type="Sprite" parent="."]
 material = SubResource( 2 )
