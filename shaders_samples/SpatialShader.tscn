@@ -8,6 +8,7 @@ subdivide_depth = 32
 
 [sub_resource type="Shader" id=2]
 code = "shader_type spatial;
+render_mode diffuse_toon, specular_toon;
 
 uniform sampler2D noise;
 uniform sampler2D normalmap;
@@ -26,7 +27,10 @@ void vertex() {
 }
 
 void fragment() {
-	 NORMALMAP = texture(normalmap, vertex_position).xyz;
+	ALBEDO = vec3(0.1, 0.3, 0.5);
+	METALLIC = 0.0;
+	ROUGHNESS = 0.01;
+	NORMALMAP = texture(normalmap, vertex_position).xyz;
 }"
 
 [sub_resource type="OpenSimplexNoise" id=4]
@@ -49,14 +53,14 @@ shader_param/normalmap = SubResource( 7 )
 [node name="SpatialShader" type="Spatial"]
 
 [node name="MeshInstance" type="MeshInstance" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.103335, 0, 0 )
 mesh = SubResource( 1 )
 material/0 = SubResource( 3 )
 script = ExtResource( 1 )
 
 [node name="OmniLight" type="OmniLight" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0171311, 0.4, 0.0834915 )
+visible = false
 shadow_enabled = true
 
 [node name="Camera" type="Camera" parent="."]
-transform = Transform( -1.62921e-07, -0.573577, 0.819152, 0, 0.819152, 0.573577, -1, 9.34475e-08, -1.33457e-07, 2, 1, 0 )
+transform = Transform( 1, 0, 0, 0, 0.984808, -0.173648, 0, 0.173648, 0.984808, 0, 0.5, 1.4 )
