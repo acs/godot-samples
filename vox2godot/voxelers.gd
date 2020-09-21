@@ -14,12 +14,14 @@ var _wireframe_bounds : MeshInstance
 
 
 func _ready():
+	# Create a wireframe to simulate the view inside MagicaVoxel
 	var wireframe = Util.create_wirecube_mesh()
 	var wireframe_instance = MeshInstance.new()
 	wireframe_instance.mesh = wireframe
 	_mesh_instance.add_child(wireframe_instance)
 	_wireframe_bounds = wireframe_instance
 
+	# Generate the mesh with the voxels
 	_generate()
 
 
@@ -27,6 +29,7 @@ func _input(event):
 	if event is InputEventKey:
 		if event.pressed:
 			if event.scancode == KEY_G:
+				# Don't know what is greedy meshing
 				_mesher.greedy_meshing_enabled = not _mesher.greedy_meshing_enabled
 				print("Greedy meshing: ", _mesher.greedy_meshing_enabled)
 				_generate()
@@ -34,7 +37,7 @@ func _input(event):
 
 func _generate():
 	var voxels = VoxelBuffer.new()
-	voxels.set_channel_depth(VoxelBuffer.CHANNEL_COLOR, VoxelBuffer.DEPTH_8_BIT)
+	# voxels.set_channel_depth(VoxelBuffer.CHANNEL_COLOR, VoxelBuffer.DEPTH_8_BIT)
 	var palette = VoxelColorPalette.new()
 	
 	var loader = VoxelVoxLoader.new()
@@ -44,8 +47,10 @@ func _generate():
 		return
 
 	_mesher.palette = palette
+	# Use the paletter to fill the voxels colors
 	_mesher.color_mode = VoxelMesherCubes.COLOR_MESHER_PALETTE
 	
+	# Pad the voxels so all of them are included
 	var padded_voxels = VoxelBuffer.new()
 	padded_voxels.create(
 		voxels.get_size().x + 2, 
@@ -57,9 +62,11 @@ func _generate():
 		voxels, Vector3(), voxels.get_size(), Vector3(1, 1, 1), VoxelBuffer.CHANNEL_COLOR)
 
 	var time_before = OS.get_ticks_usec()
+	# Create the mesh using the voxels and the materials
 	var mesh = _mesher.build_mesh(padded_voxels, _materials)
 	print("Spent ", OS.get_ticks_usec() - time_before, " us to mesh")
 
+	# Compute the numer of vertex for debugging purposes
 	var vertex_count = 0
 	for si in mesh.get_surface_count():
 		var arrays = mesh.surface_get_arrays(si)
@@ -68,6 +75,7 @@ func _generate():
 		vertex_count += len(vertices)
 	print("Vertex count: ", vertex_count)
 
+	# Use then generated mesh inside the existing MeshInstance node
 	_mesh_instance.mesh = mesh
 	_wireframe_bounds.scale = voxels.get_size()
 
