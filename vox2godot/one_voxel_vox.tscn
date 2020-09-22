@@ -1,8 +1,8 @@
 [gd_scene load_steps=2 format=2]
 
-[ext_resource path="res://one_voxel.gd" type="Script" id=1]
+[ext_resource path="res://one_voxel_vox.gd" type="Script" id=1]
 
-[node name="OneVoxel" type="Spatial"]
+[node name="OneVoxelVox" type="Spatial"]
 script = ExtResource( 1 )
 
 [node name="Camera" type="Camera" parent="."]
