@@ -16,7 +16,7 @@ _global_script_class_icons={
 [application]
 
 config/name="vox2godot"
-run/main_scene="res://one_voxel.tscn"
+run/main_scene="res://one_voxel_vox.tscn"
 config/icon="res://icon.png"
 
 [rendering]

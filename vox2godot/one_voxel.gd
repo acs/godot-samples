@@ -9,6 +9,7 @@ const _materials = [
 onready var _mesh_instance : MeshInstance = $MeshInstance
 # This mesher transforms voxels in cubes
 var _mesher = VoxelMesherCubes.new()
+<<<<<<< HEAD
 
 func _ready():
 	var voxels_raw = VoxelBuffer.new()
@@ -23,6 +24,29 @@ func _ready():
 	var voxels = voxels_raw
 	
 	_mesher.color_mode = VoxelMesherCubes.COLOR_RAW
+=======
+var _palette = VoxelColorPalette.new()
+
+func _load_palette():
+	_mesher.palette = _palette
+	# The first entry in the palette must be Color8(0,0,0,0)
+	_mesher.palette.set_color(0, Color8(0,0,0,0))
+	_mesher.palette.set_color(1, Color8(238,0,0))
+	_mesher.palette.set_color(2, Color8(0,238,0))
+
+func _ready():
+	_load_palette()
+	var voxels = VoxelBuffer.new()
+	voxels.set_channel_depth(VoxelBuffer.CHANNEL_COLOR, VoxelBuffer.DEPTH_8_BIT)
+	voxels.create(2, 1, 1)
+	voxels.set_voxel(2, 0, 0, 0, VoxelBuffer.CHANNEL_COLOR)
+	voxels.set_voxel(1, 1, 0, 0, VoxelBuffer.CHANNEL_COLOR)
+	
+	print("Voxels raw: ", voxels.get_size())
+	print("Voxel raw: ", voxels.get_voxel(1, 1, 1))
+	
+	_mesher.color_mode = VoxelMesherCubes.COLOR_MESHER_PALETTE
+>>>>>>> vox2godot: add two voxels scene
 	
 	# Pad the voxels so all of them are included
 	var padded_voxels = VoxelBuffer.new()
@@ -35,8 +59,13 @@ func _ready():
 	padded_voxels.copy_channel_from_area(
 		voxels, Vector3(), voxels.get_size(), Vector3(1, 1, 1), VoxelBuffer.CHANNEL_COLOR)
 
+<<<<<<< HEAD
 	print("Padded voxels raw: ", voxels_raw.get_size())
 	print("Padded voxel raw: ", voxels_raw.get_voxel(1, 1, 1))
+=======
+	print("Padded voxels raw: ", voxels.get_size())
+	print("Padded voxel raw: ", voxels.get_voxel(1, 1, 1))
+>>>>>>> vox2godot: add two voxels scene
 	
 	var time_before = OS.get_ticks_usec()
 	# Create the mesh using the voxels and the materials
